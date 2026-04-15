@@ -81,6 +81,7 @@
   text-decoration: none;
   background: var(--accent);
   border-radius: 999px;
+  margin-left: auto;
   transition:
     background 0.2s ease,
     box-shadow 0.2s ease;
@@ -119,6 +120,7 @@
   }
 
   .site-header__cta {
+    margin-left: 0;
     width: 100%;
     justify-content: center;
   }

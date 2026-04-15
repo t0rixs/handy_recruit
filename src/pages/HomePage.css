@@ -124,6 +124,37 @@
   color: var(--text-h);
 }
 
+.home-ceo__actions {
+  margin-top: 8px;
+}
+
+.home-ceo__biz-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-on-accent);
+  text-decoration: none;
+  background: var(--accent);
+  border-radius: 999px;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.home-ceo__biz-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.home-ceo__biz-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .home-section {
   padding: clamp(48px, 8vw, 88px) var(--content-pad);
 }

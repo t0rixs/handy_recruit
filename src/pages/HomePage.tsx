@@ -111,6 +111,11 @@ export function HomePage() {
               <p className="home-ceo__p home-ceo__p--emphasis">
                 スキルや経験よりも大切にしているのは、意志と行動力です。
               </p>
+              <div className="home-ceo__actions">
+                <Link className="home-ceo__biz-btn" to="/about/business">
+                  事業について知る
+                </Link>
+              </div>
             </div>
           </div>
         </div>
