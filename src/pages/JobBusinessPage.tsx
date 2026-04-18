@@ -1,44 +1,14 @@
-import { Link, useLocation } from 'react-router-dom'
-import { BUSINESS_ROLE_OPTIONS } from '../data/businessRoleOptions'
 import { TALENTIO_JOB_POSTINGS } from '../data/talentioJobPostings'
 import { WANTEDLY_LATEST_ARTICLES } from '../data/handyWantedlyArticles'
+import salesWorkImage from '../assets/sales.png'
 import './JobBusinessPage.css'
 
-type DetailLocationState = {
-  fromWizard?: boolean
-  selectedRoleIds?: string[]
-}
-
 export function JobBusinessPage() {
-  const location = useLocation()
-  const state = location.state as DetailLocationState | null
-  const fromWizard = Boolean(state?.fromWizard)
-  const selectedRoleIds = state?.selectedRoleIds ?? []
-
-  const selectedLabels = BUSINESS_ROLE_OPTIONS.filter((o) =>
-    selectedRoleIds.includes(o.id),
-  ).map((o) => o.label)
-
-  const backHref = fromWizard ? '/#recruit-roles' : '/'
-  const backLabel = fromWizard
-    ? '← 募集職種の選択に戻る'
-    : '← 採用トップに戻る'
-
   return (
     <main className="job-biz">
       <div className="job-biz__inner">
-        <Link className="job-biz__back" to={backHref}>
-          {backLabel}
-        </Link>
-
-        {fromWizard && selectedLabels.length > 0 ? (
-          <p className="job-biz__selection">
-            選択した区分: {selectedLabels.join('、')}
-          </p>
-        ) : null}
-
         <header className="job-biz__header">
-          <p className="job-biz__label">募集職種（例：インサイドセールス）</p>
+          <p className="job-biz__label">募集職種</p>
           <h1 className="job-biz__title">ビジネス職 — インサイドセールス</h1>
           <p className="job-biz__lead">
             トップで複数ポジションを選べますが、本ページではビジネス職のうちインサイドセールスを例に、業務のイメージをまとめています。エンジニア職・コーポレート職からお進みの方も、営業組織の一端としてご覧ください。
@@ -52,11 +22,22 @@ export function JobBusinessPage() {
           <h2 id="job-biz-work-heading" className="job-biz__h2">
             業務内容
           </h2>
+          <p className="job-biz__work-lead">
+            高校・専門学校の進路指導担当者や、採用ご担当の企業様に対し、電話・メール・オンライン商談などを通じて「Handy
+            進路指導室」などの価値をお伝えし、課題の整理から商談設定までを担います。
+          </p>
+          <figure className="job-biz__work-figure">
+            <img
+              className="job-biz__work-image"
+              src={salesWorkImage}
+              alt="クライアントや学校関係者との商談・打ち合わせのイメージ"
+              width={540}
+              height={360}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
           <div className="job-biz__prose">
-            <p>
-              高校・専門学校の進路指導担当者や、採用ご担当の企業様に対し、電話・メール・オンライン商談などを通じて「Handy
-              進路指導室」などの価値をお伝えし、課題の整理から商談設定までを担います。
-            </p>
             <p>
               リード獲得後は、プリセールスやフィールドセールスと連携しながら、導入に向けた提案資料の準備・社内調整のサポート、ナーチャリング（見込み客の育成）までを一気通貫で行います。アポイント数や商談化率などの目標と向き合う、成果重視のロールです。
             </p>

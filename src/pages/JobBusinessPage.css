@@ -4,39 +4,10 @@
 }
 
 .job-biz__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-}
-
-.job-biz__back {
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: 28px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.job-biz__back:hover {
-  text-decoration: underline;
-}
-
-.job-biz__back:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-.job-biz__selection {
-  margin: 0 0 16px;
-  padding: 12px 14px;
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--text-muted);
-  background: color-mix(in srgb, var(--accent) 7%, var(--card-bg));
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  width: 70%;
+  max-width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 
 .job-biz__header {
@@ -82,6 +53,27 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text-h);
+}
+
+.job-biz__work-lead {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+.job-biz__work-figure {
+  margin: 0 0 20px;
+}
+
+.job-biz__work-image {
+  display: block;
+  width: 100%;
+  max-width: min(540px, 100%);
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .job-biz__prose p {
