@@ -5,6 +5,7 @@ import {
   type BusinessRoleOptionId,
 } from '../data/businessRoleOptions'
 import ceoPhoto from '../assets/otasan.png'
+import schoolIllustration from '../assets/school.png'
 import './HomePage.css'
 
 type JobCategory = 'business' | 'engineer' | 'corporate'
@@ -60,21 +61,32 @@ export function HomePage() {
     <main className="home">
       <section className="home-hero" aria-labelledby="home-hero-title">
         <div className="home-hero__inner">
-          <h1 id="home-hero-title" className="home-hero__title">
-            <span className="home-hero__line">
-              高校生100万人の未来を変える
-            </span>
-            <span className="home-hero__line home-hero__line--sub">
-              学校改革型SaaS
-            </span>
-          </h1>
-          <p className="home-hero__lead">
-            私たちは高校や専門学校の求人票をデジタル化する会社です。創業3年で高校生求職者の7割が利用する一大サービスに成長しています。
-          </p>
-          <div className="home-hero__actions">
-            <Link className="home-hero__more" to="/about/know-handy">
-              もっと知る
-            </Link>
+          <div className="home-hero__copy">
+            <h1 id="home-hero-title" className="home-hero__title">
+              <span className="home-hero__line">
+                高校生100万人の未来を変える
+              </span>
+              <span className="home-hero__line home-hero__line--sub">
+                学校改革型SaaS
+              </span>
+            </h1>
+            <p className="home-hero__lead">
+              私たちは高校や専門学校の求人票をデジタル化する会社です。創業3年で高校生求職者の7割が利用する一大サービスに成長しています。
+            </p>
+            <div className="home-hero__actions">
+              <Link className="home-hero__more" to="/about/know-handy">
+                もっと知る
+              </Link>
+            </div>
+          </div>
+          <div className="home-hero__visual">
+            <img
+              className="home-hero__illustration"
+              src={schoolIllustration}
+              alt=""
+              width={808}
+              height={605}
+            />
           </div>
         </div>
       </section>
@@ -84,40 +96,45 @@ export function HomePage() {
         className="home-section home-section--ceo"
         aria-labelledby="ceo-message-heading"
       >
-        <div className="home-section__inner">
-          <h2 id="ceo-message-heading" className="home-section__title">
+        <div className="home-section__inner home-section__inner--ceo">
+          <h2
+            id="ceo-message-heading"
+            className="home-section__title home-section__title--ceo"
+          >
             CEOメッセージ
           </h2>
-          <div className="home-ceo">
-            <figure className="home-ceo__figure">
-              <img
-                className="home-ceo__photo"
-                src={ceoPhoto}
-                width={480}
-                height={600}
-                alt="代表取締役"
-              />
-            </figure>
-            <div className="home-ceo__body">
-              <p className="home-ceo__p">
-                生まれ育った地域や環境によって、進路の選択肢に大きな差がある。本当は出逢えるはずの自分に、未来に、気付かないまま大人になる高校生がいる。
-              </p>
-              <p className="home-ceo__p">
-                それは“本人のせい”ではなく、私たちが作ってしまった社会の仕組みの問題です。
-              </p>
-              <p className="home-ceo__p">
-                私たちは使命として「高校生が、進路の自己決定に必要な情報と支援を最適な形で提供する」を掲げています。
-              </p>
-              <p className="home-ceo__p">
-                この取り組みは、単なる会社の成長を目指すものではなく『日本社会を元気にする挑戦』です。そんな大きなビジョンを、一緒に形にしてくれる仲間を探しています。
-              </p>
-              <p className="home-ceo__p home-ceo__p--emphasis">
-                スキルや経験よりも大切にしているのは、意志と行動力です。
-              </p>
-              <div className="home-ceo__actions">
-                <Link className="home-ceo__biz-btn" to="/about/business">
-                  事業について知る
-                </Link>
+          <div className="home-ceo-card">
+            <div className="home-ceo">
+              <figure className="home-ceo__figure">
+                <img
+                  className="home-ceo__photo"
+                  src={ceoPhoto}
+                  width={480}
+                  height={600}
+                  alt="代表取締役"
+                />
+              </figure>
+              <div className="home-ceo__body">
+                <p className="home-ceo__p">
+                  生まれ育った地域や環境によって、進路の選択肢に大きな差がある。本当は出逢えるはずの自分に、未来に、気付かないまま大人になる高校生がいる。
+                </p>
+                <p className="home-ceo__p">
+                  それは“本人のせい”ではなく、私たちが作ってしまった社会の仕組みの問題です。
+                </p>
+                <p className="home-ceo__p">
+                  私たちは使命として「高校生が、進路の自己決定に必要な情報と支援を最適な形で提供する」を掲げています。
+                </p>
+                <p className="home-ceo__p">
+                  この取り組みは、単なる会社の成長を目指すものではなく『日本社会を元気にする挑戦』です。そんな大きなビジョンを、一緒に形にしてくれる仲間を探しています。
+                </p>
+                <p className="home-ceo__p home-ceo__p--emphasis">
+                  スキルや経験よりも大切にしているのは、意志と行動力です。
+                </p>
+                <div className="home-ceo__actions">
+                  <Link className="home-ceo__biz-btn" to="/about/business">
+                    事業について知る
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

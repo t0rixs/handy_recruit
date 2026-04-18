@@ -1,13 +1,24 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Layout } from './layouts/Layout'
 import { HomePage } from './pages/HomePage'
 import { JobBusinessPage } from './pages/JobBusinessPage'
 import { KnowHandyPage } from './pages/KnowHandyPage'
 import { PlaceholderPage } from './pages/PlaceholderPage'
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="jobs/business" element={<Navigate to="/" replace />} />
@@ -32,5 +43,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
+    </>
   )
 }

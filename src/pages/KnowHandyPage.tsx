@@ -1,22 +1,134 @@
-import { Link } from 'react-router-dom'
 import './KnowHandyPage.css'
+
+type ValueItem = {
+  en: string
+  jaTitle: string
+  body: string
+  note?: string
+}
+
+const VALUE_ITEMS: ValueItem[] = [
+  {
+    en: 'For People, For the Future',
+    jaTitle: '全ては人のため、未来のため',
+    body: '仕事は自身のためにあるのではなく、ユーザー、チーム、社会、未来のためにある',
+  },
+  {
+    en: 'Students First',
+    jaTitle: '生徒が第一',
+    body: '高校生の未来につながる意思決定を優先する',
+  },
+  {
+    en: 'Decisive and Fast-acting',
+    jaTitle: '自ら考え、決め、神速に行動する',
+    body:
+      '他責に成長なし。自ら決断し、責任を持ち、考える前に動きだすことで、スピードを生み出す',
+  },
+  {
+    en: 'Reliable Professional',
+    jaTitle: '当たり前を、確実に',
+    body:
+      '当たり前レベルが高い、誰からも信頼されるプロフェッショナルを目指す',
+  },
+  {
+    en: 'Mutually Respectful',
+    jaTitle: '他者への敬意',
+    body:
+      '全てのステークホルダーの考え方を尊重し、敬意をもって接する',
+    note:
+      '（※ユーザー、クライアント、パートナー企業、雇用形態に関わらずチームメンバー全員）',
+  },
+  {
+    en: 'Flat Team',
+    jaTitle: '目的のために、結束する',
+    body:
+      '役職やキャリアに関係なく、正しい意見を採用し、本質や、中身を大切にする組織にする',
+  },
+  {
+    en: 'Health-focused Mindset',
+    jaTitle: '健康が全てのベース',
+    body:
+      '自ら健康に生き、自分に関わる人たちも健康であることは、人生を楽しむ全ての基点になる',
+  },
+]
 
 export function KnowHandyPage() {
   return (
     <main className="know-handy">
       <div className="know-handy__inner">
-        <Link className="know-handy__back" to="/">
-          ← 採用トップに戻る
-        </Link>
+        <div className="know-handy__mission-stage">
+          <section
+            className="know-handy__mission"
+            aria-labelledby="know-handy-mission-heading"
+          >
+            <h2 id="know-handy-mission-heading" className="know-handy__mission-label">
+              Mission
+            </h2>
+            <p className="know-handy__mission-text">
+              <span className="know-handy__mission-line">
+                高校生が、進路の自己決定に
+              </span>
+              <span className="know-handy__mission-line">
+                必要な情報と支援を最適な形で提供する
+              </span>
+            </p>
+            <p className="know-handy__mission-desc">
+              高校生の進路を、本人の手にとり戻す。
+              <br />
+              そのために私たちは、情報と支援を最適な形で届ける。
+              <br />
+              学校とともに進路情報を開き、
+              <br />
+              迷いを減らし、自分で選ぶ力を支える。
+              <br />
+              そんな希望のある選択を、未来に残していくために。
+            </p>
+          </section>
+        </div>
+      </div>
 
-        <header className="know-handy__header">
-          <h1 className="know-handy__title">ハンディを知る</h1>
-          <p className="know-handy__lead">
-            ハンディは、とにかく<strong className="know-handy__em">即決断・即実行</strong>
-            が特徴の会社です。意思決定と行動が速いからこそ、プロダクトも組織も成長のスピードを落としません。
-          </p>
-        </header>
+      <section
+        className="know-handy__value-band"
+        aria-labelledby="know-handy-value-heading"
+      >
+        <div className="know-handy__value-inner">
+          <header className="know-handy__value-header">
+            <h2 id="know-handy-value-heading" className="know-handy__value-heading-en">
+              Value
+            </h2>
+            <p className="know-handy__value-heading-ja">大切にする価値</p>
+            <p className="know-handy__value-intro">
+              組織として、Vision、Missionを果たすために
+              <br />
+              下記7つのValueを大切にしています。
+            </p>
+          </header>
+          <ul className="know-handy__value-list">
+            {VALUE_ITEMS.map((item) => (
+              <li key={item.en} className="know-handy__value-card">
+                <p className="know-handy__value-card-en">{item.en}</p>
+                <div className="know-handy__value-card-body">
+                  <span className="know-handy__value-card-dot" aria-hidden="true" />
+                  <div className="know-handy__value-card-text">
+                    <p className="know-handy__value-card-line">
+                      <strong className="know-handy__value-card-ja-title">
+                        {item.jaTitle}
+                      </strong>
+                      {' '}
+                      <span className="know-handy__value-card-desc">{item.body}</span>
+                    </p>
+                    {item.note ? (
+                      <p className="know-handy__value-card-note">{item.note}</p>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
+      <div className="know-handy__inner">
         <section
           className="know-handy__section"
           aria-labelledby="know-handy-culture-heading"
