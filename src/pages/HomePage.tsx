@@ -62,7 +62,10 @@ export function HomePage() {
         <div className="home-hero__inner">
           <h1 id="home-hero-title" className="home-hero__title">
             <span className="home-hero__line">
-              高校生の未来を応援する。StudentFirstのカンパニー。
+              高校生100万人の未来を変える
+            </span>
+            <span className="home-hero__line home-hero__line--sub">
+              学校改革型SaaS
             </span>
           </h1>
           <p className="home-hero__lead">

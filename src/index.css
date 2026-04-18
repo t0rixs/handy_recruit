@@ -32,40 +32,13 @@
 
   font: 16px/1.6 var(--sans);
   letter-spacing: 0.03em;
-  color-scheme: light;
+  color-scheme: light only;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #c4c4c4;
-    --text-h: #f0eeeb;
-    --text-muted: #9a9a9a;
-    --bg: #1e1d1b;
-    --hero-bg: #23221f;
-    --header-bg: #1a1917;
-    --section-alt-bg: #262522;
-    --card-bg: #2a2825;
-    --hint-bg: #262522;
-    --border: #3d3a36;
-    --border-strong: #524e48;
-    --accent: #2dd4e0;
-    --accent-hover: #5ee7f0;
-    --accent-soft: color-mix(in srgb, #2dd4e0 14%, transparent);
-    --accent-red: #ff7a82;
-    --text-on-accent: #ffffff;
-    --shadow-sm:
-      0 1px 2px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.22);
-    --shadow-md:
-      0 14px 36px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.28);
-    --header-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
-    color-scheme: dark;
-  }
 }
 
 #root {
