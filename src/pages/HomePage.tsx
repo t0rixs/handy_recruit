@@ -74,7 +74,7 @@ export function HomePage() {
               私たちは高校や専門学校の求人票をデジタル化する会社です。創業3年で高校生求職者の7割が利用する一大サービスに成長しています。
             </p>
             <div className="home-hero__actions">
-              <Link className="home-hero__more" to="/about/know-handy">
+              <Link className="home-hero__more" to="/about/business">
                 もっと知る
               </Link>
             </div>
@@ -131,8 +131,8 @@ export function HomePage() {
                   スキルや経験よりも大切にしているのは、意志と行動力です。
                 </p>
                 <div className="home-ceo__actions">
-                  <Link className="home-ceo__biz-btn" to="/about/business">
-                    事業について知る
+                  <Link className="home-ceo__biz-btn" to="/about/know-handy">
+                    ハンディを知る
                   </Link>
                 </div>
               </div>

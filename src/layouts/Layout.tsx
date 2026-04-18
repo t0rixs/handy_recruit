@@ -1,5 +1,4 @@
 import { Link, Outlet } from 'react-router-dom'
-import { TALENTIO_RECRUIT_URL } from '../constants'
 import './Layout.css'
 
 export function Layout() {
@@ -18,14 +17,9 @@ export function Layout() {
             <Link className="site-header__link" to="/about/business">
               事業を知る
             </Link>
-            <a
-              className="site-header__cta"
-              href={TALENTIO_RECRUIT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link className="site-header__cta" to="/positions">
               募集ポジション一覧
-            </a>
+            </Link>
           </nav>
         </div>
       </header>

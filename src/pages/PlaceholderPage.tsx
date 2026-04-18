@@ -9,8 +9,8 @@ export function PlaceholderPage({ title }: PlaceholderPageProps) {
   return (
     <main className="placeholder">
       <div className="placeholder__inner">
-        <Link className="placeholder__back" to="/">
-          ← 採用トップに戻る
+        <Link className="placeholder__back" to="/" aria-label="採用トップに戻る">
+          {'<'}
         </Link>
         <h1 className="placeholder__title">{title}</h1>
         <p className="placeholder__text">

@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage'
 import { JobBusinessPage } from './pages/JobBusinessPage'
 import { KnowHandyPage } from './pages/KnowHandyPage'
 import { PlaceholderPage } from './pages/PlaceholderPage'
+import { PositionsPage } from './pages/PositionsPage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -36,10 +37,7 @@ export default function App() {
           path="about/business"
           element={<PlaceholderPage title="事業を知る" />}
         />
-        <Route
-          path="positions"
-          element={<PlaceholderPage title="ポジション一覧" />}
-        />
+        <Route path="positions" element={<PositionsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

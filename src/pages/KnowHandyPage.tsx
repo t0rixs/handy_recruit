@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './KnowHandyPage.css'
 
 type ValueItem = {
@@ -52,38 +53,149 @@ const VALUE_ITEMS: ValueItem[] = [
   },
 ]
 
+/** 企業説明スライド（ダミー） */
+type DeckSlide = {
+  id: string
+  kicker: string
+  sectionLabel: string
+  lines: string[]
+  slideNum: number
+}
+
+const DECK_SLIDES: DeckSlide[] = [
+  {
+    id: 's1',
+    kicker: '私たちについて',
+    sectionLabel: 'ミッション（果たす役割）',
+    lines: [
+      '高校生が、進路の自己決定に',
+      '必要な情報と支援を最適な形で提供する',
+    ],
+    slideNum: 1,
+  },
+  {
+    id: 's2',
+    kicker: '私たちについて',
+    sectionLabel: 'ビジョン（目指す姿）',
+    lines: [
+      '（ダミー）進路のデジタル基盤で',
+      '誰もが納得して選べる社会をつくる',
+    ],
+    slideNum: 2,
+  },
+  {
+    id: 's3',
+    kicker: '事業紹介',
+    sectionLabel: 'プロダクト',
+    lines: [
+      '（ダミー）学校向け求人票デジタル化',
+      '「Handy 進路指導室」などの提供価値',
+    ],
+    slideNum: 3,
+  },
+  {
+    id: 's4',
+    kicker: '働き方',
+    sectionLabel: 'カルチャー',
+    lines: [
+      '（ダミー）即決断・即実行を重んじる',
+      '成果と学びのスピードを大切にしています',
+    ],
+    slideNum: 4,
+  },
+]
+
+const FIT_ITEMS = [
+  {
+    en: 'Collaborative',
+    desc: 'チームで一つの目標に向かって仕事をするのが好きな人',
+  },
+  {
+    en: 'Supportive',
+    desc: 'ついつい自分のことより、お客さんや同僚のことを優先してしまう人',
+  },
+  {
+    en: 'Growth-minded',
+    desc: '会社の成長や仕事を通じて自分を成長させたい人',
+  },
+  {
+    en: 'Passionate',
+    desc:
+      '多少、辛かったり大変でも、社会課題に挑戦し、社会貢献したいと考えてる人',
+  },
+] as const
+
+const PAGE_INDEX_ITEMS: { id: string; label: string }[] = [
+  { id: 'know-handy-mission-heading', label: 'Mission' },
+  { id: 'know-handy-value-heading', label: 'Value' },
+  { id: 'know-handy-culture-title', label: 'ハンディの文化' },
+  { id: 'know-handy-fit-heading', label: '当社がフィットする方' },
+  { id: 'know-handy-company-video-heading', label: '企業説明動画' },
+  { id: 'know-handy-deck', label: '資料スライド' },
+  { id: 'know-handy-stats-title', label: '数字で見るハンディ' },
+  { id: 'know-handy-benefits-title', label: '評価制度/福利厚生' },
+]
+
 export function KnowHandyPage() {
+  const [statsExpanded, setStatsExpanded] = useState(false)
+  const [deckIndex, setDeckIndex] = useState(0)
+  const deckSlide = DECK_SLIDES[deckIndex]
+  const deckLen = DECK_SLIDES.length
+  const goDeckPrev = () => {
+    setDeckIndex((i) => (i - 1 + deckLen) % deckLen)
+  }
+  const goDeckNext = () => {
+    setDeckIndex((i) => (i + 1) % deckLen)
+  }
+
   return (
     <main className="know-handy">
       <div className="know-handy__inner">
         <div className="know-handy__mission-stage">
-          <section
-            className="know-handy__mission"
-            aria-labelledby="know-handy-mission-heading"
-          >
-            <h2 id="know-handy-mission-heading" className="know-handy__mission-label">
-              Mission
-            </h2>
-            <p className="know-handy__mission-text">
-              <span className="know-handy__mission-line">
-                高校生が、進路の自己決定に
-              </span>
-              <span className="know-handy__mission-line">
-                必要な情報と支援を最適な形で提供する
-              </span>
-            </p>
-            <p className="know-handy__mission-desc">
-              高校生の進路を、本人の手にとり戻す。
-              <br />
-              そのために私たちは、情報と支援を最適な形で届ける。
-              <br />
-              学校とともに進路情報を開き、
-              <br />
-              迷いを減らし、自分で選ぶ力を支える。
-              <br />
-              そんな希望のある選択を、未来に残していくために。
-            </p>
-          </section>
+          <div className="know-handy__mission-layout">
+            <section
+              className="know-handy__mission"
+              aria-labelledby="know-handy-mission-heading"
+            >
+              <h2 id="know-handy-mission-heading" className="know-handy__mission-label">
+                Mission
+              </h2>
+              <p className="know-handy__mission-text">
+                <span className="know-handy__mission-line">
+                  高校生が、進路の自己決定に
+                </span>
+                <span className="know-handy__mission-line">
+                  必要な情報と支援を最適な形で提供する
+                </span>
+              </p>
+              <p className="know-handy__mission-desc">
+                高校生の進路を、本人の手にとり戻す。
+                <br />
+                そのために私たちは、情報と支援を最適な形で届ける。
+                <br />
+                学校とともに進路情報を開き、
+                <br />
+                迷いを減らし、自分で選ぶ力を支える。
+                <br />
+                そんな希望のある選択を、未来に残していくために。
+              </p>
+            </section>
+            <nav
+              className="know-handy__mission-index"
+              aria-label="このページの目次"
+            >
+              <p className="know-handy__mission-index-title">Index</p>
+              <ul className="know-handy__mission-index-list">
+                {PAGE_INDEX_ITEMS.map((item) => (
+                  <li key={item.id}>
+                    <a className="know-handy__mission-index-link" href={`#${item.id}`}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
 
@@ -128,80 +240,366 @@ export function KnowHandyPage() {
         </div>
       </section>
 
-      <div className="know-handy__inner">
+      <div className="know-handy__inner know-handy__inner--narrow">
         <section
-          className="know-handy__section"
-          aria-labelledby="know-handy-culture-heading"
+          className="know-handy__block know-handy__block--culture"
+          aria-labelledby="know-handy-culture-title"
         >
-          <h2 id="know-handy-culture-heading" className="know-handy__h2">
-            スピードと成果を重んじる文化
+          <h2 id="know-handy-culture-title" className="know-handy__block-title">
+            ハンディの文化
           </h2>
-          <div className="know-handy__prose">
+          <p className="know-handy__block-lead">
+            私たちは、「〇〇」を重んじています。
+          </p>
+          <div className="know-handy__block-prose">
             <p>
-              議論を尽くすことも大切ですが、私たちは「決めたらすぐ動く」「動いた結果から学ぶ」を何より重視しています。現場の課題に向き合うほど、迷いよりも試行の回数が価値を生む場面が多く、個人・チームともに実行力が信頼の土台になります。
+              ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
             </p>
+            <p>
+              ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
+            </p>
+            <p>
+              ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
+            </p>
+          </div>
+
+          <div className="know-handy__fit">
+            <h3 id="know-handy-fit-heading" className="know-handy__fit-heading">
+              <span className="know-handy__fit-heading-dot" aria-hidden="true" />
+              当社がフィットする方
+            </h3>
+            <ul className="know-handy__fit-grid" aria-labelledby="know-handy-fit-heading">
+              {FIT_ITEMS.map((item, idx) => (
+                <li key={item.en} className="know-handy__fit-card">
+                  <div className="know-handy__fit-card-top">
+                    <span className="know-handy__fit-card-icon" aria-hidden="true">
+                      {idx === 0 ? (
+                        <svg viewBox="0 0 48 48" width="40" height="40" fill="none">
+                          <circle cx="14" cy="18" r="5" stroke="currentColor" strokeWidth="2" />
+                          <circle cx="34" cy="18" r="5" stroke="currentColor" strokeWidth="2" />
+                          <circle cx="24" cy="14" r="5" stroke="currentColor" strokeWidth="2" />
+                          <path d="M24 20v8M20 40h8" stroke="currentColor" strokeWidth="2" />
+                          <path d="M24 28l4-6 4 2" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                      ) : idx === 1 ? (
+                        <svg viewBox="0 0 48 48" width="40" height="40" fill="none">
+                          <path
+                            d="M14 32c2-10 8-16 10-16s8 6 10 16"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                          <path
+                            d="M24 8c-4 4-4 10 0 14 4-4 4-10 0-14z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                        </svg>
+                      ) : idx === 2 ? (
+                        <svg viewBox="0 0 48 48" width="40" height="40" fill="none">
+                          <circle cx="24" cy="14" r="6" stroke="currentColor" strokeWidth="2" />
+                          <path
+                            d="M14 40c2-12 8-18 10-18s8 6 10 18"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                          <path d="M32 10l4 4M36 8v6" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                      ) : (
+                        <svg viewBox="0 0 48 48" width="40" height="40" fill="none">
+                          <path
+                            d="M16 28c4-8 8-12 16-12s12 4 16 12"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                          <ellipse cx="24" cy="18" rx="8" ry="6" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                      )}
+                    </span>
+                    <p className="know-handy__fit-card-en">
+                      <span className="know-handy__fit-card-en-dot" aria-hidden="true" />
+                      {item.en}
+                    </p>
+                  </div>
+                  <div className="know-handy__fit-card-bottom">
+                    <p>{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div
+            className="know-handy__company-video"
+            aria-labelledby="know-handy-company-video-heading"
+          >
+            <div className="know-handy__company-video-inner">
+              <div className="know-handy__company-video-copy">
+                <p className="know-handy__company-video-logo" aria-hidden="true">
+                  handy
+                </p>
+                <h3
+                  id="know-handy-company-video-heading"
+                  className="know-handy__company-video-title"
+                >
+                  ハンディ企業説明会動画
+                </h3>
+                <div className="know-handy__company-video-prose">
+                  <p>
+                    こちらの動画では、Handy進路指導室の立ち上げ経緯や、当社の目指す姿（ミッション、ビジョン、バリュー）、社員の皆さんへの提供価値などを約10分にまとめています。
+                  </p>
+                  <p>
+                    通勤・通学中などの合間の時間でも見てもらえる様な内容になっていますので当社の選考を希望する応募者の皆様は、まずこちらの動画をご覧ください。
+                  </p>
+                </div>
+              </div>
+              <div className="know-handy__company-video-media">
+                <div className="know-handy__video-frame">
+                  <iframe
+                    title="ハンディ株式会社 会社説明動画（YouTube）"
+                    src="https://www.youtube.com/embed/53HFTUqXOIU"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+                <p className="know-handy__video-caption">
+                  ハンディ企業説明会動画
+                </p>
+              </div>
+            </div>
+
+            <div
+              id="know-handy-deck"
+              className="know-handy__deck"
+              aria-roledescription="carousel"
+              aria-label="企業説明スライド（ダミー）"
+            >
+              <div className="know-handy__deck-frame">
+                <div
+                  className="know-handy__deck-slide"
+                  key={deckSlide.id}
+                  aria-live="polite"
+                >
+                  <p className="know-handy__deck-kicker">{deckSlide.kicker}</p>
+                  <p className="know-handy__deck-section">{deckSlide.sectionLabel}</p>
+                  <div className="know-handy__deck-body">
+                    {deckSlide.lines.map((line, lineIdx) => (
+                      <p key={`${deckSlide.id}-${lineIdx}`} className="know-handy__deck-line">
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                  <p className="know-handy__deck-num" aria-hidden="true">
+                    {deckSlide.slideNum}
+                  </p>
+                </div>
+              </div>
+              <div className="know-handy__deck-nav">
+                <button
+                  type="button"
+                  className="know-handy__deck-btn"
+                  onClick={goDeckPrev}
+                  aria-label="前のスライド"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  className="know-handy__deck-btn"
+                  onClick={goDeckNext}
+                  aria-label="次のスライド"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
           </div>
         </section>
+      </div>
 
-        <section
-          className="know-handy__section"
-          aria-labelledby="know-handy-reward-heading"
-        >
-          <h2 id="know-handy-reward-heading" className="know-handy__h2">
-            評価と待遇——成果が還元される仕組み
+      <section
+        className="know-handy__stats-band"
+        aria-labelledby="know-handy-stats-title"
+      >
+        <div className="know-handy__stats-inner">
+          <h2 id="know-handy-stats-title" className="know-handy__stats-title">
+            数字で見るハンディ
           </h2>
-          <div className="know-handy__prose">
-            <p>
-              そのような<strong className="know-handy__em">即決断・即実行の姿勢</strong>
-              と、目標に対するコミットや成果を土台に、活躍している人がより良い待遇を得られるよう、人事評価と報酬の設計を整えています。ミッションや事業への貢献が見える化され、努力と成果が正当に評価される環境を目指しています。
+          <p className="know-handy__stats-tag">
+            <span className="know-handy__stats-tag-icon" aria-hidden="true" />
+            Colleague
+          </p>
+          <ul className="know-handy__stats-grid">
+            <li className="know-handy__stat-card">
+              <p className="know-handy__stat-label">男女比率</p>
+              <div className="know-handy__stat-pie" aria-hidden="true" />
+              <p className="know-handy__stat-legend">
+                <span>● 女性</span>
+                <span>● 男性</span>
+              </p>
+              <p className="know-handy__stat-value">42% 58%</p>
+            </li>
+            <li className="know-handy__stat-card">
+              <p className="know-handy__stat-label">平均年齢 (社員)</p>
+              <span className="know-handy__stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" width="44" height="44" fill="none">
+                  <circle cx="16" cy="14" r="5" stroke="currentColor" strokeWidth="2" />
+                  <circle cx="32" cy="14" r="5" stroke="currentColor" strokeWidth="2" />
+                  <circle cx="24" cy="12" r="5" stroke="currentColor" strokeWidth="2" />
+                  <path
+                    d="M10 40c2-10 8-14 14-14s12 4 14 14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </span>
+              <p className="know-handy__stat-value">30.9歳</p>
+            </li>
+            <li className="know-handy__stat-card">
+              <p className="know-handy__stat-label">平均年収 (賞与含む)</p>
+              <span className="know-handy__stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" width="44" height="44" fill="none">
+                  <rect
+                    x="8"
+                    y="18"
+                    width="32"
+                    height="22"
+                    rx="3"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <circle cx="24" cy="28" r="6" stroke="currentColor" strokeWidth="2" />
+                  <path d="M22 26h4v4h-4z" fill="currentColor" />
+                </svg>
+              </span>
+              <p className="know-handy__stat-value">629万</p>
+            </li>
+            <li className="know-handy__stat-card">
+              <p className="know-handy__stat-label">拠点の数</p>
+              <span className="know-handy__stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" width="44" height="44" fill="none">
+                  <path
+                    d="M12 42V20l12-8 12 8v22"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                  <path d="M18 42V28h12v14" stroke="currentColor" strokeWidth="2" />
+                  <path d="M22 32h8" stroke="currentColor" strokeWidth="2" />
+                </svg>
+              </span>
+              <p className="know-handy__stat-value">2拠点</p>
+              <p className="know-handy__stat-sub">(東京・福岡)</p>
+            </li>
+          </ul>
+          {statsExpanded ? (
+            <p className="know-handy__stats-extra">
+              （ダミー）追加の指標やグラフをここに表示できます。
             </p>
-            <p>具体的には、次のような考え方で制度を運用しています。</p>
-            <ul className="know-handy__list">
-              <li>
-                会社のミッション・事業目標に対する貢献度を軸にしたグレードや評価の枠組み
-              </li>
-              <li>
-                成果や役割の変化に応じた報酬・ボーナス（チームや事業の成果を分かち合うプログラムも含む）
-              </li>
-              <li>
-                日々の業務や受注などを通じたフィードバックと、評価面談を通じたキャリアのすり合わせ
-              </li>
-            </ul>
-            <p>
-              制度の細目や適用条件は入社後のオンボーディングや人事との面談で説明し、納得して挑戦できる状態をつくることを大切にしています。
-            </p>
-          </div>
-        </section>
+          ) : null}
+          <p className="know-handy__stats-foot">※2025年12月末時点</p>
+          <button
+            type="button"
+            className="know-handy__stats-more"
+            onClick={() => setStatsExpanded((v) => !v)}
+            aria-expanded={statsExpanded}
+          >
+            {statsExpanded ? '閉じる' : 'さらに表示'}
+            <span className="know-handy__stats-more-caret" aria-hidden="true">
+              {statsExpanded ? '▲' : '▼'}
+            </span>
+          </button>
+        </div>
+      </section>
 
+      <div className="know-handy__inner know-handy__inner--narrow">
         <section
-          className="know-handy__section know-handy__section--last"
-          aria-labelledby="know-handy-welfare-heading"
+          className="know-handy__block know-handy__block--benefits know-handy__section--last"
+          aria-labelledby="know-handy-benefits-title"
         >
-          <h2 id="know-handy-welfare-heading" className="know-handy__h2">
-            健康経営と福利厚生
+          <h2 id="know-handy-benefits-title" className="know-handy__block-title">
+            評価制度/福利厚生
           </h2>
-          <div className="know-handy__prose">
-            <p>
-              長く挑戦し続けるためには、心身の健康と働きやすさの両立が欠かせません。健康経営の考え方のもと、メンバーが自分らしくパフォーマンスを発揮できるよう、次のような支援の軸を設けています。
-            </p>
-            <ul className="know-handy__list">
-              <li>
-                健康診断・ストレスチェックなど、体調管理のための仕組みと情報の活用
-              </li>
-              <li>
-                柔軟な働き方（リモートワークや勤務形態の工夫など、職種・フェーズに応じた運用）
-              </li>
-              <li>
-                学び直しや資格取得、書籍購入など、成長を後押しする学習支援の仕組み
-              </li>
-              <li>
-                慶弔見舞金や各種手当など、生活に安心感を持って働けるための基盤
-              </li>
-            </ul>
-            <p>
-              利用できる制度や申請方法は、社内ポータルや労務窓口で案内しています。採用選考の段階でも、気になる点があれば遠慮なくおたずねください。
-            </p>
-          </div>
+          <p className="know-handy__block-prose know-handy__block-prose--lead">
+            創業間もない会社ですが、大手企業で就業経験のある役員によって、従業員が安心して仕事に取り組める環境を用意しています。特に、健康経営を重視した制度が充実しています。
+          </p>
+          <ul className="know-handy__benefit-links">
+            <li>
+              <a
+                className="know-handy__benefit-link"
+                href="https://handy.school/recruitment/evaluation"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="know-handy__benefit-link-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" width="56" height="56" fill="none">
+                    <path
+                      d="M14 38h20V22l-6-6H14v22z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M20 16v6h6M26 10l6 6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M22 30l4-4 4 4"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+                <span className="know-handy__benefit-link-row">
+                  <span className="know-handy__benefit-link-bullet" aria-hidden="true" />
+                  <span className="know-handy__benefit-link-text">人事評価制度</span>
+                  <span className="know-handy__benefit-link-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                className="know-handy__benefit-link"
+                href="https://handy.school/recruitment/welfare"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="know-handy__benefit-link-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" width="56" height="56" fill="none">
+                    <path
+                      d="M24 12c-6 6-12 10-12 18a12 12 0 1024 0c0-8-6-12-12-18z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M16 28c2 4 5 6 8 6s6-2 8-6M18 24h12"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+                <span className="know-handy__benefit-link-row">
+                  <span className="know-handy__benefit-link-bullet" aria-hidden="true" />
+                  <span className="know-handy__benefit-link-text">
+                    健康経営と福利厚生
+                    <wbr />
+                    プログラム
+                  </span>
+                  <span className="know-handy__benefit-link-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </span>
+              </a>
+            </li>
+          </ul>
         </section>
       </div>
     </main>
