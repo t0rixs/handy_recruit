@@ -1,0 +1,125 @@
+/* 控えめなモーション（全体） — prefers-reduced-motion を尊重 */
+
+:root {
+  --motion-duration: 0.55s;
+  --motion-duration-long: 0.75s;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@keyframes motion-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motion-soft-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* スクロールイン（IntersectionObserver で .is-revealed を付与） */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--motion-duration-long) var(--motion-ease-out),
+    transform var(--motion-duration-long) var(--motion-ease-out);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}
+
+/* トップヒーロー：初回のみ、テキストとビジュアルをずらしてフェード */
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero__copy > .home-hero__title {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.05s backwards;
+  }
+
+  .home-hero__copy > .home-hero__lead {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.12s backwards;
+  }
+
+  .home-hero__copy > .home-hero__actions {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.2s backwards;
+  }
+
+  .home-hero__visual {
+    animation: motion-soft-in calc(var(--motion-duration-long) + 0.1s)
+      var(--motion-ease-out) 0.08s backwards;
+  }
+}
+
+/* ハンディを知る：ミッション周りの初回 */
+@media (prefers-reduced-motion: no-preference) {
+  .know-handy__mission-stage .know-handy__mission-label {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.04s backwards;
+  }
+
+  .know-handy__mission-stage .know-handy__mission-text {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.1s backwards;
+  }
+
+  .know-handy__mission-stage .know-handy__mission-desc {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.16s backwards;
+  }
+
+  .know-handy__mission-stage .know-handy__mission-index {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.12s backwards;
+  }
+
+  .about-biz__hero-stage .about-biz__eyebrow {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.04s backwards;
+  }
+
+  .about-biz__hero-stage .about-biz__title {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.1s backwards;
+  }
+
+  .about-biz__hero-stage .about-biz__subtitle {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.16s backwards;
+  }
+
+  .about-biz__hero-stage .about-biz__index {
+    animation: motion-fade-rise var(--motion-duration-long) var(--motion-ease-out)
+      0.12s backwards;
+  }
+}

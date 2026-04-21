@@ -53,58 +53,6 @@ const VALUE_ITEMS: ValueItem[] = [
   },
 ]
 
-/** 企業説明スライド（ダミー） */
-type DeckSlide = {
-  id: string
-  kicker: string
-  sectionLabel: string
-  lines: string[]
-  slideNum: number
-}
-
-const DECK_SLIDES: DeckSlide[] = [
-  {
-    id: 's1',
-    kicker: '私たちについて',
-    sectionLabel: 'ミッション（果たす役割）',
-    lines: [
-      '高校生が、進路の自己決定に',
-      '必要な情報と支援を最適な形で提供する',
-    ],
-    slideNum: 1,
-  },
-  {
-    id: 's2',
-    kicker: '私たちについて',
-    sectionLabel: 'ビジョン（目指す姿）',
-    lines: [
-      '（ダミー）進路のデジタル基盤で',
-      '誰もが納得して選べる社会をつくる',
-    ],
-    slideNum: 2,
-  },
-  {
-    id: 's3',
-    kicker: '事業紹介',
-    sectionLabel: 'プロダクト',
-    lines: [
-      '（ダミー）学校向け求人票デジタル化',
-      '「Handy 進路指導室」などの提供価値',
-    ],
-    slideNum: 3,
-  },
-  {
-    id: 's4',
-    kicker: '働き方',
-    sectionLabel: 'カルチャー',
-    lines: [
-      '（ダミー）即決断・即実行を重んじる',
-      '成果と学びのスピードを大切にしています',
-    ],
-    slideNum: 4,
-  },
-]
-
 const FIT_ITEMS = [
   {
     en: 'Collaborative',
@@ -131,77 +79,67 @@ const PAGE_INDEX_ITEMS: { id: string; label: string }[] = [
   { id: 'know-handy-culture-title', label: 'ハンディの文化' },
   { id: 'know-handy-fit-heading', label: '当社がフィットする方' },
   { id: 'know-handy-company-video-heading', label: '企業説明動画' },
-  { id: 'know-handy-deck', label: '資料スライド' },
   { id: 'know-handy-stats-title', label: '数字で見るハンディ' },
   { id: 'know-handy-benefits-title', label: '評価制度/福利厚生' },
+  { id: 'know-handy-related-heading', label: '関連ページ' },
 ]
 
 export function KnowHandyPage() {
   const [statsExpanded, setStatsExpanded] = useState(false)
-  const [deckIndex, setDeckIndex] = useState(0)
-  const deckSlide = DECK_SLIDES[deckIndex]
-  const deckLen = DECK_SLIDES.length
-  const goDeckPrev = () => {
-    setDeckIndex((i) => (i - 1 + deckLen) % deckLen)
-  }
-  const goDeckNext = () => {
-    setDeckIndex((i) => (i + 1) % deckLen)
-  }
 
   return (
     <main className="know-handy">
-      <div className="know-handy__inner">
-        <div className="know-handy__mission-stage">
-          <div className="know-handy__mission-layout">
-            <section
-              className="know-handy__mission"
-              aria-labelledby="know-handy-mission-heading"
-            >
-              <h2 id="know-handy-mission-heading" className="know-handy__mission-label">
-                Mission
-              </h2>
-              <p className="know-handy__mission-text">
-                <span className="know-handy__mission-line">
-                  高校生が、進路の自己決定に
-                </span>
-                <span className="know-handy__mission-line">
-                  必要な情報と支援を最適な形で提供する
-                </span>
-              </p>
-              <p className="know-handy__mission-desc">
-                高校生の進路を、本人の手にとり戻す。
-                <br />
-                そのために私たちは、情報と支援を最適な形で届ける。
-                <br />
-                学校とともに進路情報を開き、
-                <br />
-                迷いを減らし、自分で選ぶ力を支える。
-                <br />
-                そんな希望のある選択を、未来に残していくために。
-              </p>
-            </section>
-            <nav
-              className="know-handy__mission-index"
-              aria-label="このページの目次"
-            >
-              <p className="know-handy__mission-index-title">Index</p>
-              <ul className="know-handy__mission-index-list">
-                {PAGE_INDEX_ITEMS.map((item) => (
-                  <li key={item.id}>
-                    <a className="know-handy__mission-index-link" href={`#${item.id}`}>
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
+      <div className="know-handy__mission-stage">
+        <div className="know-handy__mission-layout">
+          <section
+            className="know-handy__mission"
+            aria-labelledby="know-handy-mission-heading"
+          >
+            <h2 id="know-handy-mission-heading" className="know-handy__mission-label">
+              Mission
+            </h2>
+            <p className="know-handy__mission-text">
+              <span className="know-handy__mission-line">
+                高校生が、進路の自己決定に
+              </span>
+              <span className="know-handy__mission-line">
+                必要な情報と支援を最適な形で提供する
+              </span>
+            </p>
+            <p className="know-handy__mission-desc">
+              高校生の進路を、本人の手にとり戻す。
+              <br />
+              そのために私たちは、情報と支援を最適な形で届ける。
+              <br />
+              学校とともに進路情報を開き、
+              <br />
+              迷いを減らし、自分で選ぶ力を支える。
+              <br />
+              そんな希望のある選択を、未来に残していくために。
+            </p>
+          </section>
+          <nav
+            className="know-handy__mission-index"
+            aria-label="このページの目次"
+          >
+            <p className="know-handy__mission-index-title">Index</p>
+            <ul className="know-handy__mission-index-list">
+              {PAGE_INDEX_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <a className="know-handy__mission-index-link" href={`#${item.id}`}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </div>
 
       <section
         className="know-handy__value-band"
         aria-labelledby="know-handy-value-heading"
+        data-reveal
       >
         <div className="know-handy__value-inner">
           <header className="know-handy__value-header">
@@ -244,6 +182,7 @@ export function KnowHandyPage() {
         <section
           className="know-handy__block know-handy__block--culture"
           aria-labelledby="know-handy-culture-title"
+          data-reveal
         >
           <h2 id="know-handy-culture-title" className="know-handy__block-title">
             ハンディの文化
@@ -342,7 +281,7 @@ export function KnowHandyPage() {
                   id="know-handy-company-video-heading"
                   className="know-handy__company-video-title"
                 >
-                  ハンディ企業説明会動画
+                  ハンディ企業説明動画
                 </h3>
                 <div className="know-handy__company-video-prose">
                   <p>
@@ -364,54 +303,8 @@ export function KnowHandyPage() {
                   />
                 </div>
                 <p className="know-handy__video-caption">
-                  ハンディ企業説明会動画
+                  ハンディ企業説明動画
                 </p>
-              </div>
-            </div>
-
-            <div
-              id="know-handy-deck"
-              className="know-handy__deck"
-              aria-roledescription="carousel"
-              aria-label="企業説明スライド（ダミー）"
-            >
-              <div className="know-handy__deck-frame">
-                <div
-                  className="know-handy__deck-slide"
-                  key={deckSlide.id}
-                  aria-live="polite"
-                >
-                  <p className="know-handy__deck-kicker">{deckSlide.kicker}</p>
-                  <p className="know-handy__deck-section">{deckSlide.sectionLabel}</p>
-                  <div className="know-handy__deck-body">
-                    {deckSlide.lines.map((line, lineIdx) => (
-                      <p key={`${deckSlide.id}-${lineIdx}`} className="know-handy__deck-line">
-                        {line}
-                      </p>
-                    ))}
-                  </div>
-                  <p className="know-handy__deck-num" aria-hidden="true">
-                    {deckSlide.slideNum}
-                  </p>
-                </div>
-              </div>
-              <div className="know-handy__deck-nav">
-                <button
-                  type="button"
-                  className="know-handy__deck-btn"
-                  onClick={goDeckPrev}
-                  aria-label="前のスライド"
-                >
-                  ‹
-                </button>
-                <button
-                  type="button"
-                  className="know-handy__deck-btn"
-                  onClick={goDeckNext}
-                  aria-label="次のスライド"
-                >
-                  ›
-                </button>
               </div>
             </div>
           </div>
@@ -421,6 +314,7 @@ export function KnowHandyPage() {
       <section
         className="know-handy__stats-band"
         aria-labelledby="know-handy-stats-title"
+        data-reveal
       >
         <div className="know-handy__stats-inner">
           <h2 id="know-handy-stats-title" className="know-handy__stats-title">
@@ -517,6 +411,7 @@ export function KnowHandyPage() {
         <section
           className="know-handy__block know-handy__block--benefits know-handy__section--last"
           aria-labelledby="know-handy-benefits-title"
+          data-reveal
         >
           <h2 id="know-handy-benefits-title" className="know-handy__block-title">
             評価制度/福利厚生
@@ -602,6 +497,34 @@ export function KnowHandyPage() {
           </ul>
         </section>
       </div>
+
+      <section
+        id="know-handy-related"
+        className="know-handy__related-band"
+        aria-labelledby="know-handy-related-heading"
+        data-reveal
+      >
+        <div className="know-handy__related-inner">
+          <h2 id="know-handy-related-heading" className="know-handy__related-title">
+            関連ページ
+          </h2>
+          <ul className="know-handy__related-cards">
+            <li>
+              <a
+                className="know-handy__related-card"
+                href="https://handy.school/recruitment/office"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="know-handy__related-card-label">オフィス紹介</span>
+                <span className="know-handy__related-card-arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
     </main>
   )
 }

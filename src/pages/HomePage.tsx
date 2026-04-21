@@ -1,59 +1,55 @@
-import { useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   BUSINESS_ROLE_OPTIONS,
   type BusinessRoleOptionId,
 } from '../data/businessRoleOptions'
+import type { JobCategory } from '../types/jobCategory'
 import ceoPhoto from '../assets/otasan.png'
 import schoolIllustration from '../assets/school.png'
 import './HomePage.css'
 
-type JobCategory = 'business' | 'engineer' | 'corporate'
+export type { JobCategory } from '../types/jobCategory'
 
 export function HomePage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [jobCategory, setJobCategory] = useState<JobCategory | null>(null)
-  const [businessPicked, setBusinessPicked] = useState<
-    Set<BusinessRoleOptionId>
-  >(() => new Set())
 
-  const hasBusinessSelection = useMemo(
-    () => businessPicked.size >= 1,
-    [businessPicked],
-  )
+  /* Router の location.state から募集セクションを同期（直後に replace で state を消す） */
+  /* eslint-disable react-hooks/set-state-in-effect -- 上記のため effect 内 setState / 連続 navigate が必要 */
+  useEffect(() => {
+    const st = location.state as { openRecruitCategory?: JobCategory } | undefined
+    if (!st?.openRecruitCategory) return
+    const cat = st.openRecruitCategory
+    navigate(`${location.pathname}${location.search}`, { replace: true, state: {} })
+    if (cat === 'business') {
+      setJobCategory('business')
+      window.setTimeout(() => {
+        document.getElementById('recruit-roles')?.scrollIntoView({ behavior: 'smooth' })
+      }, 0)
+    } else {
+      navigate('/jobs/business/detail', { state: { fromWizard: false } })
+    }
+  }, [location.state, location.pathname, location.search, navigate])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const resetRecruit = () => {
     setJobCategory(null)
-    setBusinessPicked(new Set())
-  }
-
-  const pickCategory = (cat: JobCategory) => {
-    setJobCategory(cat)
-    setBusinessPicked(new Set())
-  }
-
-  const toggleBusiness = (id: BusinessRoleOptionId) => {
-    setBusinessPicked((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-  }
-
-  const goDetailBusiness = () => {
-    if (!hasBusinessSelection) return
-    navigate('/jobs/business/detail', {
-      state: {
-        fromWizard: true,
-        selectedRoleIds: [...businessPicked],
-      },
-    })
   }
 
   const goDetailOther = () => {
     navigate('/jobs/business/detail', {
       state: { fromWizard: false },
+    })
+  }
+
+  const goBusinessRole = (roleId: BusinessRoleOptionId) => {
+    navigate('/jobs/business/detail', {
+      state: {
+        fromWizard: true,
+        selectedRoleId: roleId,
+      },
     })
   }
 
@@ -95,6 +91,7 @@ export function HomePage() {
         id="ceo-message"
         className="home-section home-section--ceo"
         aria-labelledby="ceo-message-heading"
+        data-reveal
       >
         <div className="home-section__inner home-section__inner--ceo">
           <h2
@@ -145,6 +142,7 @@ export function HomePage() {
         id="recruit-roles"
         className="home-section"
         aria-labelledby="recruit-roles-heading"
+        data-reveal
       >
         <div className="home-section__inner">
           <h2 id="recruit-roles-heading" className="home-section__title">
@@ -154,14 +152,14 @@ export function HomePage() {
           {jobCategory === null ? (
             <>
               <p className="home-section__intro">
-                まず大分類の職種を選んでください。ビジネス職では、続けてポジションを1つ以上選んでから詳細ページへ進めます。
+                職種を選ぶと詳しい紹介ページへ進みます。ビジネス職は業務分類を押して進んでください。
               </p>
               <ul className="home-roles">
                 <li>
                   <button
                     type="button"
                     className="home-roles__btn"
-                    onClick={() => pickCategory('business')}
+                    onClick={() => setJobCategory('business')}
                   >
                     ビジネス職
                   </button>
@@ -170,7 +168,7 @@ export function HomePage() {
                   <button
                     type="button"
                     className="home-roles__btn"
-                    onClick={() => pickCategory('engineer')}
+                    onClick={goDetailOther}
                   >
                     エンジニア職
                   </button>
@@ -179,7 +177,7 @@ export function HomePage() {
                   <button
                     type="button"
                     className="home-roles__btn"
-                    onClick={() => pickCategory('corporate')}
+                    onClick={goDetailOther}
                   >
                     コーポレート職
                   </button>
@@ -189,7 +187,7 @@ export function HomePage() {
           ) : jobCategory === 'business' ? (
             <>
               <p className="home-section__intro">
-                ビジネス職の詳細です。気になるポジションにチェックを入れ（1つ以上）、「次に進む」で職種紹介へ進んでください。
+                ビジネス職の業務分類です。気になる項目を押すと職種紹介ページへ進みます。
               </p>
               <button
                 type="button"
@@ -198,77 +196,21 @@ export function HomePage() {
               >
                 ← 大分類の職種に戻る
               </button>
-              <fieldset className="home-roles__fieldset">
-                <legend className="home-roles__legend">
-                  ビジネス職のポジション（1つ以上選択）
-                </legend>
-                <ul className="home-roles home-roles--detail">
-                  {BUSINESS_ROLE_OPTIONS.map((opt) => {
-                    const inputId = `home-biz-${opt.id}`
-                    const checked = businessPicked.has(opt.id)
-                    return (
-                      <li key={opt.id}>
-                        <label
-                          className="home-roles__check"
-                          htmlFor={inputId}
-                        >
-                          <input
-                            id={inputId}
-                            className="home-roles__checkbox"
-                            type="checkbox"
-                            checked={checked}
-                            onChange={() => toggleBusiness(opt.id)}
-                          />
-                          <span className="home-roles__check-label">
-                            {opt.label}
-                          </span>
-                        </label>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </fieldset>
-              {hasBusinessSelection ? (
-                <div className="home-roles__actions">
-                  <button
-                    type="button"
-                    className="home-roles__next"
-                    onClick={goDetailBusiness}
-                  >
-                    次に進む
-                  </button>
-                </div>
-              ) : (
-                <p className="home-roles__hint" role="status">
-                  1つ以上チェックを入れると「次に進む」が表示されます。
-                </p>
-              )}
+              <ul className="home-roles home-roles--detail">
+                {BUSINESS_ROLE_OPTIONS.map((opt) => (
+                  <li key={opt.id}>
+                    <button
+                      type="button"
+                      className="home-roles__btn"
+                      onClick={() => goBusinessRole(opt.id)}
+                    >
+                      {opt.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </>
-          ) : (
-            <>
-              <p className="home-section__intro">
-                {jobCategory === 'engineer'
-                  ? 'エンジニア職から進んだ場合も、現状はビジネス職（インサイドセールス）の紹介ページで職務イメージを共有しています。'
-                  : 'コーポレート職から進んだ場合も、現状はビジネス職（インサイドセールス）の紹介ページで職務イメージを共有しています。'}
-              </p>
-              <button
-                type="button"
-                className="home-roles__back"
-                onClick={resetRecruit}
-              >
-                ← 大分類の職種に戻る
-              </button>
-              <div className="home-roles__actions">
-                <button
-                  type="button"
-                  className="home-roles__next"
-                  onClick={goDetailOther}
-                >
-                  次に進む
-                </button>
-              </div>
-            </>
-          )}
+          ) : null}
         </div>
       </section>
 
@@ -276,6 +218,7 @@ export function HomePage() {
         id="related-pages"
         className="home-section home-section--alt"
         aria-labelledby="related-pages-heading"
+        data-reveal
       >
         <div className="home-section__inner">
           <h2 id="related-pages-heading" className="home-section__title">

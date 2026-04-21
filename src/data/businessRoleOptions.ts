@@ -10,7 +10,7 @@ export type BusinessRoleOption = {
   label: string
 }
 
-/** ビジネス職の詳細区分（複数選択） */
+/** ビジネス職の業務分類（各項目で詳細ページへ遷移） */
 export const BUSINESS_ROLE_OPTIONS: BusinessRoleOption[] = [
   { id: 'open_position', label: 'オープンポジション' },
   { id: 'field_sales', label: 'フィールドセールス' },

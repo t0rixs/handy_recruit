@@ -3,8 +3,8 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Layout } from './layouts/Layout'
 import { HomePage } from './pages/HomePage'
 import { JobBusinessPage } from './pages/JobBusinessPage'
+import { AboutBusinessPage } from './pages/AboutBusinessPage'
 import { KnowHandyPage } from './pages/KnowHandyPage'
-import { PlaceholderPage } from './pages/PlaceholderPage'
 import { PositionsPage } from './pages/PositionsPage'
 
 function ScrollToTop() {
@@ -33,10 +33,7 @@ export default function App() {
           element={<Navigate to="/jobs/business/detail" replace />}
         />
         <Route path="about/know-handy" element={<KnowHandyPage />} />
-        <Route
-          path="about/business"
-          element={<PlaceholderPage title="事業を知る" />}
-        />
+        <Route path="about/business" element={<AboutBusinessPage />} />
         <Route path="positions" element={<PositionsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
