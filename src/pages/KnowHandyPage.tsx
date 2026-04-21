@@ -1,5 +1,29 @@
 import { useState } from 'react'
+import { SimplexNoise } from '@paper-design/shaders-react'
+import cultureMtgImg from '../assets/handy_mtg.png'
 import './KnowHandyPage.css'
+
+/**
+ * Mission 背景用 SimplexNoise（控えめ）
+ * ベース白〜 #00b4c3 / #009bab の極薄トーン、近傍のミント・青みシアン・グレイッシュティール
+ */
+const MISSION_SIMPLEX = {
+  colors: [
+    '#fcfdfd',
+    '#f6fbfc',
+    '#ebf7f8',
+    '#e6f4f5',
+    '#e1f0f2',
+    '#dcecf0',
+    '#d7e8ec',
+    '#d0e3e8',
+  ],
+  speed: 0.2,
+  stepsPerColor: 2,
+  softness: 0.9,
+  scale: 0.72,
+  fit: 'cover' as const,
+}
 
 type ValueItem = {
   en: string
@@ -75,8 +99,8 @@ const FIT_ITEMS = [
 
 const PAGE_INDEX_ITEMS: { id: string; label: string }[] = [
   { id: 'know-handy-mission-heading', label: 'Mission' },
-  { id: 'know-handy-value-heading', label: 'Value' },
   { id: 'know-handy-culture-title', label: 'ハンディの文化' },
+  { id: 'know-handy-value-heading', label: 'Value' },
   { id: 'know-handy-fit-heading', label: '当社がフィットする方' },
   { id: 'know-handy-company-video-heading', label: '企業説明動画' },
   { id: 'know-handy-stats-title', label: '数字で見るハンディ' },
@@ -90,6 +114,14 @@ export function KnowHandyPage() {
   return (
     <main className="know-handy">
       <div className="know-handy__mission-stage">
+        <div className="know-handy__mission-bg" aria-hidden="true">
+          <SimplexNoise
+            className="know-handy__mission-shader"
+            width="100%"
+            height="100%"
+            {...MISSION_SIMPLEX}
+          />
+        </div>
         <div className="know-handy__mission-layout">
           <section
             className="know-handy__mission"
@@ -107,15 +139,11 @@ export function KnowHandyPage() {
               </span>
             </p>
             <p className="know-handy__mission-desc">
-              高校生の進路を、本人の手にとり戻す。
+              創業3年で、導入率は業界No.1。
               <br />
-              そのために私たちは、情報と支援を最適な形で届ける。
+              そんなハンディで、高校生の選択肢を
               <br />
-              学校とともに進路情報を開き、
-              <br />
-              迷いを減らし、自分で選ぶ力を支える。
-              <br />
-              そんな希望のある選択を、未来に残していくために。
+              あなたも一緒に広げていきませんか？
             </p>
           </section>
           <nav
@@ -136,70 +164,40 @@ export function KnowHandyPage() {
         </div>
       </div>
 
-      <section
-        className="know-handy__value-band"
-        aria-labelledby="know-handy-value-heading"
-        data-reveal
-      >
-        <div className="know-handy__value-inner">
-          <header className="know-handy__value-header">
-            <h2 id="know-handy-value-heading" className="know-handy__value-heading-en">
-              Value
-            </h2>
-            <p className="know-handy__value-heading-ja">大切にする価値</p>
-            <p className="know-handy__value-intro">
-              組織として、Vision、Missionを果たすために
-              <br />
-              下記7つのValueを大切にしています。
-            </p>
-          </header>
-          <ul className="know-handy__value-list">
-            {VALUE_ITEMS.map((item) => (
-              <li key={item.en} className="know-handy__value-card">
-                <p className="know-handy__value-card-en">{item.en}</p>
-                <div className="know-handy__value-card-body">
-                  <span className="know-handy__value-card-dot" aria-hidden="true" />
-                  <div className="know-handy__value-card-text">
-                    <p className="know-handy__value-card-line">
-                      <strong className="know-handy__value-card-ja-title">
-                        {item.jaTitle}
-                      </strong>
-                      {' '}
-                      <span className="know-handy__value-card-desc">{item.body}</span>
-                    </p>
-                    {item.note ? (
-                      <p className="know-handy__value-card-note">{item.note}</p>
-                    ) : null}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       <div className="know-handy__inner know-handy__inner--narrow">
         <section
           className="know-handy__block know-handy__block--culture"
           aria-labelledby="know-handy-culture-title"
           data-reveal
         >
-          <h2 id="know-handy-culture-title" className="know-handy__block-title">
-            ハンディの文化
-          </h2>
-          <p className="know-handy__block-lead">
-            私たちは、「〇〇」を重んじています。
-          </p>
-          <div className="know-handy__block-prose">
-            <p>
-              ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
-            </p>
-            <p>
-              ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
-            </p>
-            <p>
-              ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
-            </p>
+          <div className="know-handy__culture-intro">
+            <div className="know-handy__culture-copy">
+              <h2 id="know-handy-culture-title" className="know-handy__block-title">
+                ハンディの文化
+              </h2>
+              <p className="know-handy__block-lead">
+                私たちは、「〇〇」を重んじています。
+              </p>
+              <div className="know-handy__block-prose">
+                <p>
+                  ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
+                </p>
+                <p>
+                  ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。ここにハンディが重んじる人材像などを〇〇という視点で語る。
+                </p>
+              </div>
+            </div>
+            <figure className="know-handy__culture-figure">
+              <img
+                className="know-handy__culture-img"
+                src={cultureMtgImg}
+                width={960}
+                height={540}
+                alt="オフィスで打ち合わせをするハンディのメンバー"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
           </div>
 
           <div className="know-handy__fit">
@@ -310,6 +308,48 @@ export function KnowHandyPage() {
           </div>
         </section>
       </div>
+
+      <section
+        className="know-handy__value-band"
+        aria-labelledby="know-handy-value-heading"
+        data-reveal
+      >
+        <div className="know-handy__value-inner">
+          <header className="know-handy__value-header">
+            <h2 id="know-handy-value-heading" className="know-handy__value-heading-en">
+              Value
+            </h2>
+            <p className="know-handy__value-heading-ja">大切にする価値</p>
+            <p className="know-handy__value-intro">
+              組織として、Vision、Missionを果たすために
+              <br />
+              下記7つのValueを大切にしています。
+            </p>
+          </header>
+          <ul className="know-handy__value-list">
+            {VALUE_ITEMS.map((item) => (
+              <li key={item.en} className="know-handy__value-card">
+                <p className="know-handy__value-card-en">{item.en}</p>
+                <div className="know-handy__value-card-body">
+                  <span className="know-handy__value-card-dot" aria-hidden="true" />
+                  <div className="know-handy__value-card-text">
+                    <p className="know-handy__value-card-line">
+                      <strong className="know-handy__value-card-ja-title">
+                        {item.jaTitle}
+                      </strong>
+                      {' '}
+                      <span className="know-handy__value-card-desc">{item.body}</span>
+                    </p>
+                    {item.note ? (
+                      <p className="know-handy__value-card-note">{item.note}</p>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section
         className="know-handy__stats-band"
